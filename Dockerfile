@@ -11,6 +11,7 @@ ENV REAL_IP_HEADER 1
 
 
 ENV APP_URL=https://health-center-v1.onrender.com
+ENV ASSET_URL="${APP_URL}"
 # Laravel config
 ENV APP_KEY base64:MrxtAI7shE8b9cMmfJdk/B63n+h4YlamALbJW9V7U2w=
 ENV APP_ENV production
