@@ -10,7 +10,7 @@ ENV RUN_SCRIPTS 1
 ENV REAL_IP_HEADER 1
 
 
-ENV APP_URL=https://tabulation-backend.onrender.com
+ENV APP_URL=https://health-center-v1.onrender.com
 # Laravel config
 ENV APP_KEY base64:MrxtAI7shE8b9cMmfJdk/B63n+h4YlamALbJW9V7U2w=
 ENV APP_ENV production
