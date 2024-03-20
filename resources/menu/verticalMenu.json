@@ -108,12 +108,7 @@
       "url": "/profile",
       "icon": "menu-icon tf-icons bx bxs-user",
       "name": "Profile",
-      "slug": "profile.index",
-      "access": [
-        "Admin",
-        "Doctor",
-        "Encoder"
-      ]
+      "slug": "profile.index"
     }
   ]
 }
