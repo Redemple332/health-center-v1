@@ -8,12 +8,11 @@ use App\Http\Controllers\inventory_management\MedicineTypeController;
 use App\Http\Controllers\inventory_management\MedicineListController;
 use App\Http\Controllers\inventory_management\MedicineExpiredController;
 use App\Http\Controllers\inventory_management\MedicineSupplierController;
-use App\Http\Controllers\inventory_management\MedicineReceivingController;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\attendance\AttendanceController;
 use App\Http\Controllers\medical_record\MedicalRecordController;
 use App\Http\Controllers\patients\PatientsController;
+use App\Http\Controllers\profile\ProfileController;
 use App\Http\Controllers\sales\SalesController;
 use App\Http\Controllers\users\UsersController;
 
