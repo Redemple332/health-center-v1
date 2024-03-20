@@ -111,51 +111,53 @@
                 </div>
             </div>
         </div> --}}
-        <div class="col-lg-12">
-            <div class="card p-4" style="min-height: 23rem">
-                {{-- ATTENDANCE HERE --}}
+        @if (in_array(auth()->user()->role->name, ['Admin', 'Encoder', 'Doctor']))
+            <div class="col-lg-12">
+                <div class="card p-4" style="min-height: 23rem">
+                    {{-- ATTENDANCE HERE --}}
 
-                <div class="table-responsive text-nowrap">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Login</th>
-                                <th>Logout</th>
-                                <th>Action</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-border-bottom-0">
-
-                            @forelse ($attendanceToday as $item)
+                    <div class="table-responsive text-nowrap">
+                        <table class="table table-striped table-hover">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        {{ $item->user->full_name }}</td>
-                                    <td><span
-                                            class="badge bg-label-success me-1">{{ \Carbon\Carbon::parse($item->time_in)->format('h:i A') }}</span>
-                                    </td>
-                                    <td><span
-                                            class="badge bg-label-primary me-1">{{ $item->time_out ? \Carbon\Carbon::parse($item->time_out)->format('h:i A') : 'N/A' }}</span>
-                                    </td>
-                                    <td>
-                                        <a {{ $item->status != 0 ? 'hidden' : '' }}
-                                            href="{{ route('attendance.inOut', ['id' => $item->id]) }}"
-                                            class="btn btn-primary gap-1" id="btnCreateForm"><i
-                                                class='bx bx-time'></i>Confirm</a>
-                                    </td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}</td>
+                                    <th>Name</th>
+                                    <th>Login</th>
+                                    <th>Logout</th>
+                                    <th>Action</th>
+                                    <th>Date</th>
                                 </tr>
-                            @empty
-                                <tr class="text-center">
-                                    <td colspan="5">No Record Found</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+
+                                @forelse ($attendanceToday as $item)
+                                    <tr>
+                                        <td>
+                                            {{ $item->user->full_name }}</td>
+                                        <td><span
+                                                class="badge bg-label-success me-1">{{ \Carbon\Carbon::parse($item->time_in)->format('h:i A') }}</span>
+                                        </td>
+                                        <td><span
+                                                class="badge bg-label-primary me-1">{{ $item->time_out ? \Carbon\Carbon::parse($item->time_out)->format('h:i A') : 'N/A' }}</span>
+                                        </td>
+                                        <td>
+                                            <a {{ $item->status != 0 ? 'hidden' : '' }}
+                                                href="{{ route('attendance.inOut', ['id' => $item->id]) }}"
+                                                class="btn btn-primary gap-1" id="btnCreateForm"><i
+                                                    class='bx bx-time'></i>Confirm</a>
+                                        </td>
+                                        <td>{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}</td>
+                                    </tr>
+                                @empty
+                                    <tr class="text-center">
+                                        <td colspan="5">No Record Found</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 
 @endsection
