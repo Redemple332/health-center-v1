@@ -15,7 +15,7 @@ ENV ASSET_URL="${APP_URL}"
 # Laravel config
 ENV APP_KEY base64:mln1keRjYJYz06TPXJg8SZhJ7JN+oToy08vrPQhoq78=
 ENV APP_ENV production
-ENV APP_DEBUG false
+ENV APP_DEBUG true
 
 ENV DB_CONNECTION pgsql
 ENV DB_HOST dpg-cmh1fhfqd2ns73fneg30-a
