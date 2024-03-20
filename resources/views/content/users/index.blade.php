@@ -23,9 +23,10 @@
 
                 // Download QR code
                 $("#downloadBtn").click(function() {
+                    var last_name = $('#last_name').val();
                     var canvas = document.querySelector("#qrcode canvas");
                     var downloadLink = document.createElement('a');
-                    downloadLink.setAttribute('download', name + '-QR.png');
+                    downloadLink.setAttribute('download', last_name + '-QR.png');
                     var dataURL = canvas.toDataURL('image/png');
                     var url = dataURL.replace(/^data:image\/png/, 'data:application/octet-stream');
                     downloadLink.setAttribute('href', url);
