@@ -19,32 +19,16 @@
 
             // Add a callback function to handle scanned QR codes
             scanner.addListener('scan', function(content) {
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: `/login-qr-code`,
-                    method: "POST",
-                    data: {
-                        qr_code: content,
-                    },
-                    success: function(data) {
-                        const message = data.message;
-                        Swal.fire({
-                            title: message,
-                            text: `Your successfully ${message}!`,
-                            icon: 'success'
-                        });
-                    },
-                    error: function(err) {
-                        let error = err.responseJSON;
-                        console.log(error);
-                        alert("Invalid QR Code")
-                    }
-                });
+
+                if (content) {
+                    $('#formModal').modal('show');
+                    $('#qrcode').val(content);
+                    $('#password').val("");
+                }
+
             });
 
-            // Start the camera and begin scanning
+            // St art the camera and begin scanning
             Instascan.Camera.getCameras()
                 .then(function(cameras) {
                     if (cameras.length > 0) {
@@ -56,6 +40,51 @@
                 .catch(function(error) {
                     console.error(error);
                 });
+            $('#btnSubmit').on('click', function() {
+                var btn = $(this);
+                btn.prop('disabled', true); // Disable the button
+                btn.html(
+                    '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...'
+                ); // Change the text to indicate loading
+
+                var content = $('#qrcode').val();
+                var password = $('#password').val();
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: `/login-qr-code`,
+                    method: "POST",
+                    data: {
+                        qr_code: content,
+                        password: password
+                    },
+                    success: function(data) {
+                        const message = data.message;
+                        Swal.fire({
+                            title: message,
+                            text: `Your successfully ${message}`,
+                            icon: 'success'
+                        });
+                        btn.prop('disabled', false);
+                        btn.html('Submit');
+                        $('#formModal').modal('hide');
+                    },
+                    error: function(err) {
+                        let error = err.responseJSON;
+                        const message = error.message;
+                        $('#formModal').modal('hide');
+                        btn.prop('disabled', false);
+                        btn.html('Submit');
+                        Swal.fire({
+                            title: "Login Error",
+                            text: message,
+                            icon: 'error'
+                        });
+                    }
+                });
+            })
         });
     </script>
 @endsection
@@ -92,4 +121,36 @@
         </div>
     </div>
     </div>
+
+    <div class="modal fade" id="formModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form id="form-modal">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="formModalLabel">Attendance</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" required id="password" name="password" class="form-control"
+                                    placeholder="Enter Password">
+                                <span class="invalid-feedback" role="alert">
+                                    <strong id="validation-password"></strong>
+                                </span>
+                            </div>
+                        </div>
+                        <input type="hidden" value="" name="qrcode" id="qrcode">
+                    </div>
+                    <input type="hidden" id="id" name="id">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btnSubmit">Confirm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection

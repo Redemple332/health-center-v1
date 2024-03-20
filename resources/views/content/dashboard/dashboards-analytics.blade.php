@@ -20,8 +20,6 @@
     </script>
 @endsection
 
-
-
 @section('content')
 
     @if (auth()->user()->role->name == 'Admin')
@@ -110,18 +108,12 @@
             <div class="card p-4 d-flex" style="height: 100%">
                 <div style="display: grid; place-items:center; height:100%">
                     Insert Chart Here
-
                 </div>
             </div>
         </div> --}}
         <div class="col-lg-12">
             <div class="card p-4" style="min-height: 23rem">
                 {{-- ATTENDANCE HERE --}}
-                <h5 class="card-header p-0 pb-4">
-                    <a {{ $attendance?->time_out ? 'hidden' : '' }} href="{{ route('attendance.inOut') }}"
-                        class="btn btn-danger gap-1" id="btnCreateForm"><i
-                            class='bx bx-time'></i>{{ $attendance ? 'Time Out' : 'Time In' }}</a>
-                </h5>
 
                 <div class="table-responsive text-nowrap">
                     <table class="table table-striped table-hover">
@@ -130,6 +122,7 @@
                                 <th>Name</th>
                                 <th>Login</th>
                                 <th>Logout</th>
+                                <th>Action</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
@@ -145,6 +138,12 @@
                                     <td><span
                                             class="badge bg-label-primary me-1">{{ $item->time_out ? \Carbon\Carbon::parse($item->time_out)->format('h:i A') : 'N/A' }}</span>
                                     </td>
+                                    <td>
+                                        <a {{ $item->status != 0 ? 'hidden' : '' }}
+                                            href="{{ route('attendance.inOut', ['id' => $item->id]) }}"
+                                            class="btn btn-primary gap-1" id="btnCreateForm"><i
+                                                class='bx bx-time'></i>Confirm</a>
+                                    </td>
                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}</td>
                                 </tr>
                             @empty
@@ -152,8 +151,6 @@
                                     <td colspan="5">No Record Found</td>
                                 </tr>
                             @endforelse
-
-
                         </tbody>
                     </table>
                 </div>

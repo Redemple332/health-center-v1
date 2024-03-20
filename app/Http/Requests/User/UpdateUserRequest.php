@@ -28,7 +28,6 @@ class UpdateUserRequest extends FormRequest
 			'last_name' => 'required|string',
 			'contact' => 'required|string',
 			'address' => 'required|string',
-			'qr_code' => 'string',
 			'password' => 'required|min:8|confirmed',
 			'email' => ['required', 'email', 'string', 'max:255'],
 			'role_id' => 'exists:roles,id',

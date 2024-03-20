@@ -19,6 +19,7 @@ return new class extends Migration {
 				->references('id')
 				->on('users');
 			$table->dateTime('time_in');
+			$table->string('status');
 			$table->dateTime('time_out')->nullable();
 			$table->timestamps();
 			$table->softDeletes();

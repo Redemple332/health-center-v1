@@ -5,7 +5,6 @@
         <td>{{ $item->first_name }}</td>
         <td>{{ $item->last_name }}</td>
         <td>{{ $item->email }}</td>
-        <td>{{ $item->qr_code }}</td>
         <td>{{ $item->role->name }}</td>
         <td><span
                 class="badge bg-label-primary me-1">{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}</span>

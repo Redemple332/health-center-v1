@@ -4,7 +4,36 @@
 
 @section('page-script')
     <script src="{{ asset('assets/js/app.js') }}"></script>
-    {{-- <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script> --}}
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '#btnCreateForm', function() {
+                $("#qrcode").html("");
+            });
+            $(document).on('click', '.btnEditForm', function() {
+                var qrCodeURL = $('#qr_code').val();
+                var qr = new QRCode(document.getElementById("qrcode"), {
+                    text: qrCodeURL,
+                    width: 200,
+                    height: 200,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+
+                // Download QR code
+                $("#downloadBtn").click(function() {
+                    var canvas = document.querySelector("#qrcode canvas");
+                    var downloadLink = document.createElement('a');
+                    downloadLink.setAttribute('download', name + '-QR.png');
+                    var dataURL = canvas.toDataURL('image/png');
+                    var url = dataURL.replace(/^data:image\/png/, 'data:application/octet-stream');
+                    downloadLink.setAttribute('href', url);
+                    downloadLink.click();
+                });
+            });
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -29,7 +58,6 @@
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
-                        <th>QR Code</th>
                         <th>Role</th>
                         <th>Date Created</th>
                         <th>Actions</th>

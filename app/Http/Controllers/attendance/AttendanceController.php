@@ -18,22 +18,15 @@ class AttendanceController extends Controller
 		return view('content.attendance.index', compact('title', 'attendanceToday'));
 	}
 
-	public function inOut()
+	public function inOut(Request $request, $id)
 	{
-		$attendance = Attendance::where('user_id', Auth::user()->id)
+		$attendance = Attendance::where('id', $id)
 			->whereDate('created_at', now())
 			->first();
 
 		if ($attendance) {
 			$attendance->update([
-				'time_out' => now(),
-			]);
-			return back();
-		} else {
-			Attendance::create([
-				'user_id' => Auth::user()->id,
-				'health_center_id' => Auth::user()->health_center_id,
-				'time_in' => now(),
+				'status' => '1',
 			]);
 			return back();
 		}

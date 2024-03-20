@@ -13,7 +13,7 @@ class Attendance extends Model
 {
 	use HasFactory, SoftDeletes, HasUuids, SpecificHealthCenter;
 
-	protected $fillable = ['health_center_id', 'user_id', 'time_in', 'time_out'];
+	protected $fillable = ['health_center_id', 'user_id', 'time_in', 'time_out', 'status'];
 
 	public function user(): BelongsTo
 	{

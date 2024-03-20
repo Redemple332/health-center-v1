@@ -43,7 +43,14 @@ class UsersController extends Controller
 	{
 		$validatedData = $request->validated();
 		$validatedData['health_center_id'] = auth()->user()->health_center_id ?? $request->health_center_id;
-		User::create($validatedData);
+		$validatedData['qr_code'] = '';
+
+		$user = User::create($validatedData);
+
+		$user->update([
+			'qr_code' => $user->first_name . '_' . $user->last_name . $user->id,
+		]);
+
 		$data = $this->tableData();
 		$table_data = view('content.users.table', compact('data'))->render();
 		return compact('table_data');

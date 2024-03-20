@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
 		->controller(AttendanceController::class)
 		->group(function () {
 			Route::get('/', 'index')->name('index');
-			Route::get('/inOut', 'inOut')->name('inOut');
+			Route::get('/inOut/{id}', 'inOut')->name('inOut');
 		});
 
 	Route::prefix('patients')

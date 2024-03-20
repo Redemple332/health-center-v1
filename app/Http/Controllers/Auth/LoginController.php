@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 class LoginController extends Controller
 {
 	/*
@@ -44,7 +46,7 @@ class LoginController extends Controller
 	{
 		$user = User::where('qr_code', $request->qr_code)->first();
 
-		if ($user) {
+		if ($user && Hash::check($request->password, $user->password)) {
 			$attendance = Attendance::where('user_id', $user->id)
 				->whereDate('created_at', now())
 				->first();
@@ -53,19 +55,21 @@ class LoginController extends Controller
 				Attendance::create([
 					'user_id' => $user->id,
 					'health_center_id' => $user->health_center_id,
+					'status' => 0,
 					'time_in' => now(),
 				]);
-				return response()->json(['message' => 'Time In']);
+				return response()->json(['message' => 'Time In. Waiting for Confirmation of the Admin']);
 			} elseif ($attendance && !$attendance->time_out) {
 				Attendance::find($attendance->id)->update([
 					'time_out' => now(),
+					'status' => 0,
 				]);
-				return response()->json(['message' => 'Time Out']);
+				return response()->json(['message' => 'Time Out. Waiting for Confirmation of the Admin']);
 			} else {
 				return response()->json(['message' => 'Already Time Out']);
 			}
 		} else {
-			return false;
+			return response()->json(['message' => 'Invalid Password or QR Code'], 422);
 		}
 	}
 
