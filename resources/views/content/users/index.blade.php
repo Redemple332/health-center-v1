@@ -25,12 +25,41 @@
                 $("#downloadBtn").click(function() {
                     var last_name = $('#last_name').val();
                     var canvas = document.querySelector("#qrcode canvas");
+
+                    // Create a new canvas for the padded QR code
+                    var paddedCanvas = document.createElement('canvas');
+                    paddedCanvas.width = canvas.width +
+                        20; // Adding padding of 10 pixels on each side
+                    paddedCanvas.height = canvas.height +
+                        20; // Adding padding of 10 pixels on each side
+                    var ctx = paddedCanvas.getContext('2d');
+
+                    // Fill the padded canvas with white
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
+
+                    // Draw the original QR code onto the padded canvas
+                    ctx.drawImage(canvas, 10, 10);
+
+                    // Create a download link
                     var downloadLink = document.createElement('a');
                     downloadLink.setAttribute('download', last_name + '-QR.png');
-                    var dataURL = canvas.toDataURL('image/png');
-                    var url = dataURL.replace(/^data:image\/png/, 'data:application/octet-stream');
-                    downloadLink.setAttribute('href', url);
+                    downloadLink.setAttribute('href', paddedCanvas.toDataURL('image/png').replace(
+                        /^data:image\/png/, 'data:application/octet-stream'));
                     downloadLink.click();
+
+
+
+
+
+
+
+
+
+
+
+
+                    
                 });
             });
         });

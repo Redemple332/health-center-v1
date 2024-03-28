@@ -121,8 +121,8 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Login</th>
-                                    <th>Logout</th>
+                                    <th>Time In</th>
+                                    <th>Time Out</th>
                                     <th>Action</th>
                                     <th>Date</th>
                                 </tr>
