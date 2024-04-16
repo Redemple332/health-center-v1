@@ -22,7 +22,7 @@ ENV DB_HOST dpg-coevs4i1hbls73932bcg-a
 ENV DB_PORT 5432
 ENV DB_DATABASE health_center_db
 ENV DB_USERNAME health_center_db_user
-ENV DB_PASSWORD V537VZK21a07HpHeYJzTRxpaHdgFkzduB
+ENV DB_PASSWORD 537VZK21a07HpHeYJzTRxpaHdgFkzduB
 
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
