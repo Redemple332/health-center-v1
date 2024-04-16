@@ -18,11 +18,11 @@ ENV APP_ENV production
 ENV APP_DEBUG false
 
 ENV DB_CONNECTION pgsql
-ENV DB_HOST dpg-cmh1fhfqd2ns73fneg30-a
+ENV DB_HOST dpg-coevs4i1hbls73932bcg-a
 ENV DB_PORT 5432
-ENV DB_DATABASE tabulation
-ENV DB_USERNAME tabulation_user
-ENV DB_PASSWORD VdXd0N2uIMzpv9WgMSDuEdXULIiGFVwu
+ENV DB_DATABASE health_center_db
+ENV DB_USERNAME health_center_db_user
+ENV DB_PASSWORD V537VZK21a07HpHeYJzTRxpaHdgFkzduB
 
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
