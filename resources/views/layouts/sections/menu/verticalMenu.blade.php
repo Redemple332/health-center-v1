@@ -75,6 +75,17 @@
                 @endif
             @endif
         @endforeach
+        <li class="menu-item">
+            <a class="menu-link  blue-theme" href="{{ route('logout') }}"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="menu-icon tf-icons bx bxs-log-out"></i>
+                <div>Logout</div>
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        </li>
     </ul>
 
 </aside>
